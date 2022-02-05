@@ -25,4 +25,4 @@ With the "InputsBuilder" you can build the form by adding new object and dependi
         disabled: input disabled (false is the defualt);
         validation: input validation (can use Yup library);
         
-        (Can you add more attributes that goes in to the input attributes by defualt)
+        (You can add more attributes that goes in to the input attributes by defualt)
