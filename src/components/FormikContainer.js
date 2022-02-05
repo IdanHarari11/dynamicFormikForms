@@ -22,19 +22,16 @@ const FormikContainer = () => {
         { key: 'CBOption 3', value: 'CBoption3' },
     ]
 
-    // control options: [input, textarea, select, radio]
+    // control options: [input, textarea, select, radio, checkbox, date(not work well)]
     const inputsBuilder = [
-        { name: 'fullName', label: 'שם מלא:', type: 'text', control: 'input', placeholder: 'שם מלא', disabled: false, validation: Yup.string().required('Required!')},
-        { name: 'phoneNumber', label: 'מספר טלפון:', type: 'text', control: 'input', placeholder: 'מספר טלפון', disabled: false, validation: Yup.number().typeError('נא להזין מספרים בלבד').min(0).required('Required!')},
-        { name: 'email', label: 'כתובת מייל לקבלת התראות:', type: 'email', control: 'input', placeholder: 'כתובת מייל לקבלת התראות', disabled: false, validation: Yup.string().email('Invalid email format').required('Required!')},
-        { name: 'projectName', label: 'שם הפרויקט:', type: 'text', control: 'input', placeholder: 'שם הפרויקט (מבולמ"ס)', disabled: false, validation: Yup.string().required('Required!')},
-        { name: 'description', label: 'תיאור קצר של הפרויקט:', type: 'text', control: 'input', placeholder: 'תיאור קצר של הפרויקט', disabled: false, isTextArea: true ,required: false, validation: Yup.string()},
-        { name: 'FinOpsName', label: 'שם מוביל FinOps:', type: 'text', control: 'input', placeholder: 'במידה ולא קיים, מנהל הפרויקט הינו מוביל ה-FinOps', disabled: false, required: false, validation: Yup.string()},
-        { name: 'FinOpsEmail', label: 'אימייל מוביל FinOps:', type: 'text', control: 'input', placeholder: 'במידה ולא קיים, אימייל הינו אימייל של מנהל הפרויקט', disabled: false, required: false, validation: Yup.string().email('Invalid email format')},
-        // { name: 'selectOption', label: 'Select A Topic', type: 'text', control: 'select', options: dropdownOptions, validation: Yup.string().required('Required!')},
-        // { name: 'radioOption', label: 'Radio Topic',  control: 'radio', options: radioOptions, validation: Yup.string().required('Required!')},
-        // { name: 'checkboxOption', label: 'Checkbox Topic',  control: 'checkbox', options: checkboxOptions, validation: Yup.array().required('Required!')},
-        // { name: 'datePicker', label: 'Date Picker', control: 'date', validation: Yup.date().required('Required!').nullable()},
+        { name: 'fullName', label: 'שם מלא:', type: 'text', control: 'input', placeholder: 'שם מלא', validation: Yup.string().required('Required!')},
+        { name: 'phoneNumber', label: 'מספר טלפון:', type: 'number', control: 'input', placeholder: 'מספר טלפון', validation: Yup.number().typeError('נא להזין מספרים בלבד').min(0).required('Required!')},
+        { name: 'email', label: 'כתובת מייל:', type: 'email', control: 'input', placeholder: 'כתובת מייל', validation: Yup.string().email('Invalid email format').required('Required!')},
+        { name: 'description', label: 'תיאור קצר של הפרויקט:', type: 'text', control: 'textarea', placeholder: 'תיאור קצר של הפרויקט', disabled: false, required: false, validation: Yup.string()},
+        { name: 'selectOption', label: 'Select A Topic', type: 'text', control: 'select', options: dropdownOptions, validation: Yup.string().required('Required!')},
+        { name: 'radioOption', label: 'Radio Topic',  control: 'radio', options: radioOptions, validation: Yup.string().required('Required!')},
+        { name: 'checkboxOption', label: 'Checkbox Topic',  control: 'checkbox', options: checkboxOptions, validation: Yup.array().required('Required!')},
+        { name: 'datePicker', label: 'Date Picker',  type: 'date', control: 'date', validation: Yup.date().required('Required!').nullable()},
     ]
 
     const initialValues = { };
@@ -43,23 +40,23 @@ const FormikContainer = () => {
     
     // Build the form by inputsBuilder array
     inputsBuilder.map((input) => {
-        switch (input.type) {
+        switch (input?.type) {
             case 'number':
-                initialValues[input.name] = 0;
+                initialValues[input?.name] = 0;
                 break;
             case 'checkbox':
-                initialValues[input.name] = [];
+                initialValues[input?.name] = [];
                 break;
             case 'date':
-                initialValues[input.name] = null;
+                initialValues[input?.name] = null;
                 break;
                 
             default:
-                initialValues[input.name] = '';
+                initialValues[input?.name] = '';
                 break;
         }
-        validationSchema.fields[input.name] = input.validation;
-        validationSchema._nodes.push(input.name);
+        validationSchema.fields[input?.name] = input?.validation;
+        validationSchema._nodes.push(input?.name);
     })
     
     const onSubmit = (values) => {
@@ -75,13 +72,12 @@ const FormikContainer = () => {
             {inputsBuilder.map((input, key) => (
                 <FormikControl 
                 key={key} 
-                name={input.name} 
-                label={input.label} 
+                name={input?.name} 
+                label={input?.label} 
                 type={input?.type} 
-                control={input.control} 
+                control={input?.control} 
                 placeholder={input?.placeholder} 
                 disabled={input?.disabled} 
-                isTextArea={input?.isTextArea} 
                 required={input?.required}
                 options={input?.options} />
             ))}

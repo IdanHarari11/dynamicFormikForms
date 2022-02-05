@@ -3,7 +3,7 @@ import DataView from 'react-datepicker'
 import React from 'react';
 import TextError from './TextError';
 
-const DatePickerFormik = ({ label, name, ...rest }) => {
+const DatePickerFormik = ({ label, name, type='date', ...rest }) => {
   return (
     <div className='form-control'>
         <label htmlFor={name}>{label}</label>

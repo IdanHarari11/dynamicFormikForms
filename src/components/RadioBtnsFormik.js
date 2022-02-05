@@ -2,10 +2,13 @@ import { ErrorMessage, FastField } from 'formik';
 import React from 'react';
 import TextError from './TextError';
 
-const RadioBtnsFormik = ({ label, name, options, ...rest }) => {
+const RadioBtnsFormik = ({ label, name, options, required=true, ...rest }) => {
   return (
     <div className='form-control'>
-        <label>{label}</label>
+        <label>
+            {required ? <b style={{color: 'red'}}>* </b> : null }
+            {label}
+        </label>
         <FastField name={name} {...rest}>
             {
                 ({ field }) => {
